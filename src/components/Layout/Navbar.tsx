@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NavbarProps {
   transparent?: boolean;
@@ -11,6 +12,7 @@ interface NavbarProps {
 const Navbar = ({ transparent = false }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -53,18 +55,42 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
           </Link>
         </div>
         
-        {/* Shopping Bag Button */}
-        <Button variant="ghost" size="icon" className="relative">
-          <ShoppingBag className="h-5 w-5" />
-          <span className="absolute -top-1 -right-1 bg-wrap-burgundy text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-            0
-          </span>
-        </Button>
-        
-        {/* Mobile Menu Button */}
-        <button className="md:hidden" onClick={toggleMenu}>
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* User Controls */}
+        <div className="flex items-center space-x-4">
+          {user ? (
+            <div className="hidden md:flex items-center space-x-4">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="flex items-center space-x-2"
+                onClick={signOut}
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Sign Out</span>
+              </Button>
+            </div>
+          ) : (
+            <Link to="/auth" className="hidden md:block text-foreground hover:text-wrap-burgundy transition-colors">
+              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                <User className="h-4 w-4" />
+                <span>Sign In</span>
+              </Button>
+            </Link>
+          )}
+          
+          {/* Shopping Bag Button */}
+          <Button variant="ghost" size="icon" className="relative">
+            <ShoppingBag className="h-5 w-5" />
+            <span className="absolute -top-1 -right-1 bg-wrap-burgundy text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+              0
+            </span>
+          </Button>
+          
+          {/* Mobile Menu Button */}
+          <button className="md:hidden" onClick={toggleMenu}>
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
       
       {/* Mobile Menu */}
@@ -99,6 +125,27 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
             >
               Contact
             </Link>
+            {user ? (
+              <button 
+                className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
+                onClick={() => {
+                  signOut();
+                  toggleMenu();
+                }}
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Sign Out</span>
+              </button>
+            ) : (
+              <Link 
+                to="/auth" 
+                className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
+                onClick={toggleMenu}
+              >
+                <User className="h-4 w-4" />
+                <span>Sign In</span>
+              </Link>
+            )}
           </div>
         </div>
       )}
