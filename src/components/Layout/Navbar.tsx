@@ -15,7 +15,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -74,9 +74,9 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                   </Button>
                 </Link>
               )}
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 className="flex items-center space-x-2"
                 onClick={signOut}
               >
@@ -92,7 +92,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               </Button>
             </Link>
           )}
-          
+
           {/* Shopping Bag Button */}
           <Button variant="ghost" size="icon" className="relative">
             <ShoppingBag className="h-5 w-5" />
@@ -100,7 +100,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               0
             </span>
           </Button>
-          
+
           {/* Mobile Menu Button */}
           <button className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -141,8 +141,8 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               Contact
             </Link>
             {isAdmin && (
-              <Link 
-                to="/admin" 
+              <Link
+                to="/admin"
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
                 onClick={toggleMenu}
               >
@@ -151,7 +151,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               </Link>
             )}
             {user ? (
-              <button 
+              <button
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
                 onClick={() => {
                   signOut();
@@ -162,8 +162,8 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                 <span>Sign Out</span>
               </button>
             ) : (
-              <Link 
-                to="/auth" 
+              <Link
+                to="/auth"
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
                 onClick={toggleMenu}
               >
