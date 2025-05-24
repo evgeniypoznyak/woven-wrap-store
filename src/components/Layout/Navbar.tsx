@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User, LogOut } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, LogOut, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 
 interface NavbarProps {
   transparent?: boolean;
@@ -13,7 +14,8 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
-  
+  const { isAdmin } = useAdmin();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -53,15 +55,28 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
           <Link to="/contact" className="text-foreground hover:text-wrap-burgundy transition-colors">
             Contact
           </Link>
+          {isAdmin && (
+            <Link to="/admin" className="text-foreground hover:text-wrap-burgundy transition-colors">
+              Admin
+            </Link>
+          )}
         </div>
         
         {/* User Controls */}
         <div className="flex items-center space-x-4">
           {user ? (
             <div className="hidden md:flex items-center space-x-4">
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              {isAdmin && (
+                <Link to="/admin">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <Shield className="h-4 w-4" />
+                    <span>Admin</span>
+                  </Button>
+                </Link>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
                 className="flex items-center space-x-2"
                 onClick={signOut}
               >
@@ -77,7 +92,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               </Button>
             </Link>
           )}
-          
+
           {/* Shopping Bag Button */}
           <Button variant="ghost" size="icon" className="relative">
             <ShoppingBag className="h-5 w-5" />
@@ -85,7 +100,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               0
             </span>
           </Button>
-          
+
           {/* Mobile Menu Button */}
           <button className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -125,8 +140,18 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
             >
               Contact
             </Link>
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
+                onClick={toggleMenu}
+              >
+                <Shield className="h-4 w-4" />
+                <span>Admin</span>
+              </Link>
+            )}
             {user ? (
-              <button 
+              <button
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
                 onClick={() => {
                   signOut();
@@ -137,8 +162,8 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                 <span>Sign Out</span>
               </button>
             ) : (
-              <Link 
-                to="/auth" 
+              <Link
+                to="/auth"
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
                 onClick={toggleMenu}
               >
