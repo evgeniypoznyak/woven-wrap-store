@@ -1,11 +1,50 @@
 
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import ProductCard from '@/components/Products/ProductCard';
-import { products } from '@/data/products';
 
 const FeaturedProducts = () => {
-  const featuredProducts = products.slice(0, 4);
+  const { data: wraps = [] } = useQuery({
+    queryKey: ['featured-wraps'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('wraps')
+        .select(`
+          *,
+          wrap_images (
+            id,
+            image_url,
+            display_order
+          )
+        `)
+        .eq('is_featured', true)
+        .eq('in_stock', true)
+        .order('created_at', { ascending: false })
+        .limit(4);
+
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  // Transform database wraps to match the Product interface
+  const featuredProducts = wraps.map(wrap => ({
+    id: wrap.id,
+    name: wrap.name,
+    description: wrap.description || '',
+    price: Number(wrap.price),
+    originalPrice: wrap.original_price ? Number(wrap.original_price) : undefined,
+    images: wrap.wrap_images?.map(img => img.image_url) || ['/placeholder.svg'],
+    colors: wrap.colors || [],
+    material: wrap.material || '',
+    size: wrap.size || '',
+    category: wrap.category || '',
+    inStock: wrap.in_stock || false,
+    isNew: wrap.is_new || false,
+    isFeatured: wrap.is_featured || false
+  }));
 
   return (
     <section className="section-padding bg-white">
@@ -24,11 +63,17 @@ const FeaturedProducts = () => {
           </Button>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {featuredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <p className="text-wrap-charcoal/70">No featured products available at the moment.</p>
+          </div>
+        )}
       </div>
     </section>
   );

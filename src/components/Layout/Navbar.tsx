@@ -1,9 +1,10 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User, LogOut } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, LogOut, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { useAdmin } from '@/hooks/useAdmin';
 
 interface NavbarProps {
   transparent?: boolean;
@@ -13,6 +14,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -53,12 +55,25 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
           <Link to="/contact" className="text-foreground hover:text-wrap-burgundy transition-colors">
             Contact
           </Link>
+          {isAdmin && (
+            <Link to="/admin" className="text-foreground hover:text-wrap-burgundy transition-colors">
+              Admin
+            </Link>
+          )}
         </div>
         
         {/* User Controls */}
         <div className="flex items-center space-x-4">
           {user ? (
             <div className="hidden md:flex items-center space-x-4">
+              {isAdmin && (
+                <Link to="/admin">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                    <Shield className="h-4 w-4" />
+                    <span>Admin</span>
+                  </Button>
+                </Link>
+              )}
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -125,6 +140,16 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
             >
               Contact
             </Link>
+            {isAdmin && (
+              <Link 
+                to="/admin" 
+                className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
+                onClick={toggleMenu}
+              >
+                <Shield className="h-4 w-4" />
+                <span>Admin</span>
+              </Link>
+            )}
             {user ? (
               <button 
                 className="flex items-center space-x-2 text-foreground hover:text-wrap-burgundy transition-colors py-2"
