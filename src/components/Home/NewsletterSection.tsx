@@ -20,12 +20,12 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-20 bg-wrap-sand">
+    <section className="py-20 bg-navy-lightest">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-8 md:p-12">
           <div className="text-center mb-8">
-            <h2 className="font-serif text-2xl md:text-3xl">Join Our Community</h2>
-            <p className="text-wrap-charcoal/80 mt-2">
+            <h2 className="font-serif text-2xl md:text-3xl text-navy-dark">Join Our Community</h2>
+            <p className="text-navy-medium mt-2">
               Subscribe to receive updates, exclusive offers, and babywearing tips.
             </p>
           </div>
@@ -37,17 +37,17 @@ const NewsletterSection = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
               required
-              className="flex-grow px-4 py-3 border border-wrap-charcoal/20 rounded-md focus:outline-none focus:ring-2 focus:ring-wrap-burgundy/30"
+              className="flex-grow px-4 py-3 border border-navy-medium/20 rounded-md focus:outline-none focus:ring-2 focus:ring-navy-light/30"
             />
             <Button 
               type="submit"
-              className="bg-wrap-burgundy hover:bg-wrap-burgundy/90 text-white py-3 px-6"
+              className="bg-navy-light hover:bg-navy-light/90 text-white py-3 px-6"
             >
               Subscribe
             </Button>
           </form>
           
-          <p className="text-center text-wrap-charcoal/60 text-xs mt-4">
+          <p className="text-center text-navy-medium text-xs mt-4">
             By subscribing, you agree to our Privacy Policy. We never spam.
           </p>
         </div>

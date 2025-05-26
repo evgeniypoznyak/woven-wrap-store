@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import HeroSection from '@/components/Home/HeroSection';
+import CategorySection from '@/components/Home/CategorySection';
 import FeaturedProducts from '@/components/Home/FeaturedProducts';
 import BenefitsSection from '@/components/Home/BenefitsSection';
 import TestimonialsSection from '@/components/Home/TestimonialsSection';
@@ -14,6 +15,7 @@ const Index = () => {
       <Navbar transparent={true} />
       <main>
         <HeroSection />
+        <CategorySection />
         <FeaturedProducts />
         <BenefitsSection />
         <TestimonialsSection />
