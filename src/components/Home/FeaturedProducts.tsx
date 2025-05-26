@@ -51,12 +51,12 @@ const FeaturedProducts = () => {
       <div className="container-custom">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
           <div>
-            <span className="text-wrap-burgundy font-medium tracking-wider text-sm">OUR COLLECTION</span>
-            <h2 className="font-serif text-3xl md:text-4xl mt-2">Featured Wraps</h2>
+            <span className="text-navy-light font-medium tracking-wider text-sm">OUR COLLECTION</span>
+            <h2 className="font-serif text-3xl md:text-4xl mt-2 text-navy-dark">Featured Wraps</h2>
           </div>
           <Button 
             variant="link" 
-            className="text-wrap-burgundy font-medium mt-4 md:mt-0 p-0 hover:text-wrap-burgundy/80"
+            className="text-navy-light font-medium mt-4 md:mt-0 p-0 hover:text-navy-light/80"
             asChild
           >
             <Link to="/products">View All Products</Link>
@@ -71,7 +71,7 @@ const FeaturedProducts = () => {
           </div>
         ) : (
           <div className="text-center py-8">
-            <p className="text-wrap-charcoal/70">No featured products available at the moment.</p>
+            <p className="text-navy-medium">No featured products available at the moment.</p>
           </div>
         )}
       </div>
