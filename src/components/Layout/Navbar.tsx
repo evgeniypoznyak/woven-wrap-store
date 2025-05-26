@@ -41,7 +41,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
           <Link to="/" className="text-2xl md:text-3xl font-bold text-teal">
             WOVEN
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/products" className="text-charcoal hover:text-teal transition-colors font-medium">
@@ -59,7 +59,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
               </Link>
             )}
           </div>
-          
+
           {/* User Controls */}
           <div className="flex items-center space-x-4">
             {user ? (
@@ -71,9 +71,9 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                     </Button>
                   </Link>
                 )}
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="flex items-center space-x-2 text-charcoal hover:text-teal"
                   onClick={signOut}
                 >
@@ -87,7 +87,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                 </Button>
               </Link>
             )}
-            
+
             {/* Shopping Bag Button */}
             <Button variant="ghost" size="icon" className="relative text-charcoal hover:text-teal">
               <ShoppingBag className="h-5 w-5" />
@@ -95,42 +95,42 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                 0
               </span>
             </Button>
-            
+
             {/* Mobile Menu Button */}
             <button className="md:hidden text-charcoal" onClick={toggleMenu}>
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-md py-4 animate-fade-in">
             <div className="container-custom flex flex-col space-y-4">
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className="text-charcoal hover:text-teal transition-colors py-2 font-medium"
                 onClick={toggleMenu}
               >
                 SHOP
               </Link>
-              <Link 
-                to="/learn" 
+              <Link
+                to="/learn"
                 className="text-charcoal hover:text-teal transition-colors py-2 font-medium"
                 onClick={toggleMenu}
               >
                 LEARN
               </Link>
-              <Link 
-                to="/quiz" 
+              <Link
+                to="/quiz"
                 className="text-charcoal hover:text-teal transition-colors py-2 font-medium"
                 onClick={toggleMenu}
               >
                 QUIZ
               </Link>
               {isAdmin && (
-                <Link 
-                  to="/admin" 
+                <Link
+                  to="/admin"
                   className="flex items-center space-x-2 text-charcoal hover:text-teal transition-colors py-2"
                   onClick={toggleMenu}
                 >
@@ -139,7 +139,7 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                 </Link>
               )}
               {user ? (
-                <button 
+                <button
                   className="flex items-center space-x-2 text-charcoal hover:text-teal transition-colors py-2"
                   onClick={() => {
                     signOut();
@@ -150,8 +150,8 @@ const Navbar = ({ transparent = false }: NavbarProps) => {
                   <span>Sign Out</span>
                 </button>
               ) : (
-                <Link 
-                  to="/auth" 
+                <Link
+                  to="/auth"
                   className="flex items-center space-x-2 text-charcoal hover:text-teal transition-colors py-2"
                   onClick={toggleMenu}
                 >
